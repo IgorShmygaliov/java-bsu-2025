@@ -33,6 +33,17 @@ public class UserService {
         }
     }
 
+    public void delete(UUID id) {
+        if (conn == null) return;
+        try (PreparedStatement ps = conn.prepareStatement(
+                "DELETE FROM users WHERE id=?")) {
+            ps.setString(1, id.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public User get(UUID id) {
         if (conn == null) return null;
         try (PreparedStatement ps = conn.prepareStatement(
